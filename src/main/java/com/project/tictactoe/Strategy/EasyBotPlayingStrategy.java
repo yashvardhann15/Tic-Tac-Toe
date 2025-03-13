@@ -1,6 +1,22 @@
 package com.project.tictactoe.Strategy;
 
-public class EasyBot implements BotDifficultyStrategy{
+import com.project.tictactoe.Models.*;
+
+import java.util.List;
+
+public class EasyBotPlayingStrategy implements BotPlayingStrategy {
     @Override
-    public void makeMove() {}
+    public Moves makeMove(Board board , Player player) {
+        int dimension = board.getSize();
+        for(List<Cell> cells : board.getGrid()){
+            for(Cell cell : cells){
+                if(cell.getCellState().equals(CellState.EMPTY)){
+                    cell.setSymbol(player.getSymbol());
+                    cell.setCellState(CellState.FILLED);
+                    return new Moves(cell , player);
+                }
+            }
+        }
+        return null;
+    }
 }

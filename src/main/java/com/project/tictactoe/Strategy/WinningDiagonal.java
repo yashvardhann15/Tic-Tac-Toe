@@ -1,4 +1,13 @@
 package com.project.tictactoe.Strategy;
 
-public class WinningDiagnol {
+import com.project.tictactoe.Models.Board;
+import com.project.tictactoe.Models.Moves;
+import com.project.tictactoe.Models.Player;
+
+public class WinningDiagonal implements WinningStrategy{
+
+    @Override
+    public boolean checkWinner(Board board , Moves move) {
+        return false;
+    }
 }
