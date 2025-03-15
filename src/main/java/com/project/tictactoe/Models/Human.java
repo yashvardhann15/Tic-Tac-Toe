@@ -19,19 +19,22 @@ public class Human extends Player {
 
     @Override
     public Moves makeMove(Board board) {
-        System.out.println("Choose a row");
-        int row = scanner.nextInt();
-        System.out.println("Choose a column");
-        int col = scanner.nextInt();
+        int row, col;
 
-        if(!validate(row , col , board)){
-            System.out.println("Invalid row or column. Retry...");
-            makeMove(board);
+        while (true) {
+            System.out.println("Choose a row");
+            row = scanner.nextInt();
+            System.out.println("Choose a column");
+            col = scanner.nextInt();
+
+            if (validate(row, col, board)) {
+                break;
+            } else {
+                System.out.println("Invalid row or column. Retry...");
+            }
         }
 
-        Moves move = new Moves(new Cell(row , col) , this);
-
-        return move;
+        return new Moves(new Cell(row, col), this);
     }
 
 
