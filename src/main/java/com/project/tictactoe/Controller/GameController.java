@@ -22,6 +22,7 @@ public class GameController {
         return game.getGameState();
     }
     public void Undo(Game game){
+        game.Undo(game);
     }
     public Player getWinner(Game game){
         return game.getWinner();

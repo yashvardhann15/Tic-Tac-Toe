@@ -29,6 +29,7 @@ public class Client {
         while(gameController.checkState(game).equals(GameState.IN_PROGRESS)){
             gameController.makeMove(game);
             gameController.display(game);
+            gameController.Undo(game);
         }
 
         if(gameController.checkState(game).equals(GameState.SUCCESS)){

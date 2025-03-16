@@ -4,10 +4,7 @@ import com.project.tictactoe.Strategy.WinningStrategy;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -48,6 +45,12 @@ public class Game {
         return result;
     }
 
+    void handleUndo(Cell cell){
+        for(WinningStrategy strategy : winningStrategy){
+            strategy.handleUndo(cell);
+        }
+    }
+
     public void makeMove(Game game){
         Player player = players.get(nextPlayerIndex);
 
@@ -82,6 +85,42 @@ public class Game {
         else{
             game.setGameState(GameState.IN_PROGRESS);
         }
+    }
+
+
+    public void Undo(Game game){
+        if(moves.isEmpty()){
+            return;
+        }
+        int ind = (nextPlayerIndex - 1 + players.size()) % players.size();
+        if(players.get(ind).undoAvailable == 0) return;
+
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Do you want to undo " + players.get(ind).name + "? (y/n)");
+        String ch = scanner.nextLine();
+
+
+        if(ch.equals("y")){
+            players.get(ind).undoAvailable--;
+            nextPlayerIndex = ind;
+
+            Moves move = moves.getLast();
+            moves.remove(move);
+
+
+            Cell cell = move.getCell();
+            handleUndo(cell);
+
+            cell.setSymbol(null);
+            cell.setCellState(CellState.EMPTY);
+
+            filledCellsCount--;
+
+            setWinner(null);
+            setGameState(GameState.IN_PROGRESS);
+        }
+        else return;
     }
 
 
@@ -141,7 +180,6 @@ public class Game {
         }
 
         public Game build(){
-
             validate();
             return new Game(this);
         }

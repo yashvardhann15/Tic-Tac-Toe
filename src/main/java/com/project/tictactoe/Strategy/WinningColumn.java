@@ -1,9 +1,6 @@
 package com.project.tictactoe.Strategy;
 
-import com.project.tictactoe.Models.Board;
-import com.project.tictactoe.Models.Moves;
-import com.project.tictactoe.Models.Player;
-import com.project.tictactoe.Models.Symbol;
+import com.project.tictactoe.Models.*;
 
 import java.util.HashMap;
 
@@ -26,5 +23,15 @@ public class WinningColumn implements WinningStrategy{
         colCount.get(col).put(symbol, colCount.get(col).getOrDefault(symbol, 0) + 1);
 
         return colCount.get(col).get(symbol) == dimension;
+    }
+
+    @Override
+    public void handleUndo(Cell cell) {
+        int col = cell.getCol();
+
+        Symbol symbol = cell.getSymbol();
+        int curCount = colCount.get(col).get(symbol);
+        colCount.get(col).put(symbol, curCount - 1);
+        return;
     }
 }

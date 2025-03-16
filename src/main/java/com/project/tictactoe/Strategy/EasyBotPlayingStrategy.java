@@ -11,8 +11,8 @@ public class EasyBotPlayingStrategy implements BotPlayingStrategy {
         for(List<Cell> cells : board.getGrid()){
             for(Cell cell : cells){
                 if(cell.getCellState().equals(CellState.EMPTY)){
-                    cell.setSymbol(player.getSymbol());
-                    cell.setCellState(CellState.FILLED);
+//                    cell.setSymbol(player.getSymbol());
+//                    cell.setCellState(CellState.FILLED);
                     return new Moves(cell , player);
                 }
             }
